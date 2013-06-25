@@ -1,0 +1,53 @@
+Features
+
+*The API Piece - Enabling Communication by Email
+	*Email when outbid
+	*Email when auction near closing
+
+*Duration - start and end of auction
+
+*Enabling Auto Outbidding - up to max bid of user
+
+*Updating of Max Bid
+
+*Enabling Users to Create Auctions 
+
+===================
+
+*Feedback to seller from bidder
+
+================= Coding Items
+
+Checks:
+
+#1
+ 	If time>end time, no bid accepted
+#2
+ 	Above Current Bid?
+#3
+ 	No neg bids
+
+	
+	4) Checks if bid is one above current bid - not accepted otherwise, no non-integer bids
+	5) Checks if current leader is updating max bid to be higher - update max bid if so
+	6) if max bid> current max bid - update current bid, auction leader, max bid
+
+
+
+Saved Code Snippets for Later Use
+
+    if user_max_bid > @auction_max_bid
+      @auction_max_bid = user_max_bid
+      @auction_leader = user
+      @current_bid = @current_bid + 1
+      puts "You, #{user.name}, are now the auction leader with current bid of #{@current_bid}!"
+      
+    end
+
+
+  
+#if the number is less than or equal to zero. return nil, output error
+
+#if the number is a decimal, we round down "floor" and output error saying that we placed bid without decimals
+
+

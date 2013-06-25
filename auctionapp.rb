@@ -10,46 +10,70 @@ class User
 
 end
 
-class Auction
+class Auction #in charge of the auction items and bid placing
 
 	attr_accessor :end_time, :auction_leader, :auction_max_bid, :current_bid
 
 	def initialize(seconds_till_end)
-		@auction_max_bid=0
 		@current_bid=0
+    @auction_max_bid = @current_bid
 		@start_time = Time.now
-		@end_time = Time.at(@start_time + seconds_till_end) #converts this date into a time object relative to epoch time
+		@end_time = Time.at(@start_time + seconds_till_end) #converts this date into a time object
 	end
 		
 
-	def bid(user, max_bid)
+	def bid(user, user_max_bid)
+    user_max_bid = sanitize_bid(user_max_bid)
 
-		puts "Your #{user.name} max bid is #{max_bid}"
-		user
-		if max_bid > @auction_max_bid
-			@auction_max_bid = max_bid
-			@auction_leader = user
-			@current_bid = @current_bid + 1
-			puts "You, #{user.name}, are now the auction leader with current bid of #{@current_bid}!"
-			
-		end
-		
+    if user_max_bid
+      
+      
+      puts "Placing bid for #{user.name}, max: $#{user_max_bid}"
+  	  if user_max_bid > @auction_max_bid        
+        if user == @auction_leader
+          @auction_max_bid = user_max_bid
+          puts "Thanks #{user.name}, you have updated your max bid to #{@auction_max_bid}"
+        else #user != @auction_leader
+          @current_bid = @auction_max_bid + 1
+          @auction_max_bid = user_max_bid
+          @auction_leader = user
+          puts "Congrats, #{@auction_leader.name}, you are currently leading with #{@current_bid}"
+        end
+      end
+
+      if user_max_bid < @auction_max_bid
+        if user_max_bid > @current_bid
+          @current_bid = user_max_bid + 1
+          puts "#{user.name} has been outbid by #{@auction_leader.name}."
+        else
+          puts "Your bid must be greater than the current bid of $#{@current_bid}"
+        end
+      end
+    end
 	end
 
+  def sanitize_bid(bid)
+    if bid <= 0 
+      puts "Your bid is not acceptable, can't bid with negative or zero."
+      return nil
+    end
+
+    if bid - bid.floor != 0 && bid.floor == 0
+      puts "Your bid is not acceptable. Can't bid below $1"
+      nil
+    elsif bid - bid.floor != 0
+      puts "Only whole dollar bids are accepted. Rounding your bid down to #{bid.floor}"
+      bid = bid.floor
+    end
+    bid
+  end
+		
+	def status
+		puts "The current winner is #{@auction_leader.name}"
+		puts "The current bid is: $#{@current_bid}"
+		puts "The current private max bid is #{@auction_max_bid}"
+	end
 end
-
-
-
-# class Bid
-# 	attr_accessor :auction, :max_bid, :user
-
-# 	def initialize (user, max_bid)
-# 		@max_bid = max_bid
-# 		@user = user
-		
-# 	end
-# end
-
 
 def duration(weeks)
 
