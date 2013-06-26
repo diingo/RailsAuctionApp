@@ -48,4 +48,7 @@ Saved Code Snippets for Later Use
 
 #if the number is a decimal, we round down "floor" and output error saying that we placed bid without decimals
 
+=============
+
+create array of users for auctions
 

@@ -1,4 +1,5 @@
 require 'gmail'
+load 'mailer.rb'
 
 class User
 
@@ -90,7 +91,7 @@ def weeks(weeks)
 		
 end
 
-
+send_email("a17levine@gmail.com", "This is a test email.", "This was sent from a function.. Duh!")
 
 # Gmail.new(username, password) do |gmail|
 # gmail.deliver do
