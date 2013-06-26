@@ -1,3 +1,5 @@
+require 'gmail'
+
 class User
 
 	attr_accessor :name, :email
@@ -15,6 +17,7 @@ class Auction #in charge of the auction items and bid placing
 	attr_accessor :end_time, :auction_leader, :auction_max_bid, :current_bid
 
 	def initialize(seconds_till_end)
+    @auction_leader = nil
 		@current_bid=0
     @auction_max_bid = @current_bid
 		@start_time = Time.now
@@ -24,10 +27,7 @@ class Auction #in charge of the auction items and bid placing
 
 	def bid(user, user_max_bid)
     user_max_bid = sanitize_bid(user_max_bid)
-
-    if user_max_bid
-      
-      
+    if user_max_bid && self.auction_underway? #if bid is not valid, will not run
       puts "Placing bid for #{user.name}, max: $#{user_max_bid}"
   	  if user_max_bid > @auction_max_bid        
         if user == @auction_leader
@@ -67,6 +67,15 @@ class Auction #in charge of the auction items and bid placing
     end
     bid
   end
+
+  def auction_underway?
+    if @start_time >= @end_time
+      puts "Auction is over."
+      return false
+    end
+    puts "Auction still underway"
+    return true
+  end
 		
 	def status
 		puts "The current winner is #{@auction_leader.name}"
@@ -75,8 +84,24 @@ class Auction #in charge of the auction items and bid placing
 	end
 end
 
-def duration(weeks)
+def weeks(weeks)
 
 	weeks*60*60*24*7 #seconds in week
 		
 end
+
+
+
+# Gmail.new(username, password) do |gmail|
+# gmail.deliver do
+#   to "email@example.com"
+#   subject "Having fun in Puerto Rico!"
+#   text_part do
+#     body "Text of plaintext message."
+#   end
+#   html_part do
+#     body "<p>Text of <em>html</em> message.</p>"
+#   end
+#   add_file "/path/to/some_image.jpg"
+# end
+# end

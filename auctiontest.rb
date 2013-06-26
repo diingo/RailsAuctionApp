@@ -1,9 +1,9 @@
-gene = User.new('Gene', 'gene.gkl@gmail.com')
-alex = User.new('Alex', 'a17levine@gmail.com')
+gene = User.new('Gene', 'gene@gmail.com')
+alex = User.new('Alex', 'alex@gmail.com')
 dufus = User.new('Dufus', 'whatever@gmail.com')
-harsh = User.new('Harsh', 'harsh@themakersquare.com')
-toy = Auction.new(duration(1))
-toy.auction_leader = gene
+harsh = User.new('Harsh', 'harsh@makersquare.com')
+# toy = Auction.new(weeks(1))
+toy = Auction.new(-1)
 
 def divider
 	puts "========"
@@ -44,6 +44,16 @@ divider
 puts "Bid is 110"
 toy.bid(gene, 90)
 toy.status
+
+divider
+puts "Bid is a word"
+toy.bid(harsh, "hello")
+toy.status
+
+divider
+puts "This is a test of our most recent auction_underway function"
+puts toy.auction_underway?
+
 
 # divider
 # puts "Attempt to sanitize neg number: -20"

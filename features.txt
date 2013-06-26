@@ -6,11 +6,9 @@ Features
 
 *Duration - start and end of auction
 
-*Enabling Auto Outbidding - up to max bid of user
-
-*Updating of Max Bid
-
 *Enabling Users to Create Auctions 
+
+*Add error msg for when bidder enters string instead of number
 
 ===================
 
