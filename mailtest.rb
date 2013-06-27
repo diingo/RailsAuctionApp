@@ -1,17 +1,20 @@
+load 'mailer.rb'
+load 'auctionapp.rb'
 require 'gmail'
 
-def send_email(email_address,subject_line,body)
-	Gmail.new(ENV['GMAIL_EMAIL'], ENV['GMAIL_PASSWORD']) do |gmail|
-  	gmail.deliver do
-  	  to email_address
-  	  subject subject_line 
 
-  	  text_part do
-  	    body body
-  	  end
-  	end
-  end
-end
+gene = User.new('Gene', 'gene.gkl@gmail.com')
+alex = User.new('Alex', 'a17levine@gmail.com')
+dufus = User.new('Dufus', 'whatever@gmail.com')
+harsh = User.new('Harsh', 'harsh@makersquare.com')
+
+toy = Auction.new(weeks(1), 'toy', 'a big toy')
+
+# email_welcome(alex)
+# email_end_lose(alex, toy)
+# email_max_bid_update(alex, toy)
+
+
 
 
 

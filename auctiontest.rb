@@ -4,7 +4,7 @@ gene = User.new('Gene', 'gene@gmail.com')
 alex = User.new('Alex', 'alex@gmail.com')
 dufus = User.new('Dufus', 'whatever@gmail.com')
 harsh = User.new('Harsh', 'harsh@makersquare.com')
-toy = Auction.new(weeks(1))
+toy = Auction.new(weeks(1), 'toy', 'a big toy')
 # toy = Auction.new(-1)
 
 def divider
