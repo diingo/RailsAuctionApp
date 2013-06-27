@@ -2,9 +2,9 @@ load 'auctionapp.rb'
 
 gene = User.new('Gene', 'gene.gkl@gmail.com')
 alex = User.new('Alex', 'a17levine@gmail.com')
-sonny = User.new('Sonny', 'sonnyg.email@gmail.com')
+shaan = User.new('Shaan', 'shaan@gmail.com')
 
-moose = Auction.new(weeks(1), 'Moose Accessory', 'You really want to buy this accessory for your moose. Significant performance improvements!')
+moose = Auction.new(weeks(1 'Moose Accessory', 'You really want to buy this accessory for your ),moose. Significant performance improvements!')
 
 def divider
 	puts "========"
@@ -30,7 +30,7 @@ moose.bid(gene, 50)
 moose.status
 
 divider
-moose.bid(sonny, 60)
+moose.bid(shaan, 60)
 moose.status
 
 divider

@@ -28,16 +28,26 @@ def email_max_bid_update(user, auction)
 end
 
 def email_send(email_address,subject_line,body)
-	Gmail.new(ENV['GMAIL_EMAIL'], ENV['GMAIL_PASSWORD']) do |gmail|
-  	gmail.deliver do
-  	  to email_address
-  	  subject subject_line 
+	# Gmail.new(ENV['GMAIL_EMAIL'], ENV['GMAIL_PASSWORD']) do |gmail|
+ #  	gmail.deliver do
+ #  		from "Auction Bot"
+ #  	  to email_address
+ #  	  subject subject_line 
 
-  	  text_part do
-  	    body body
-  	  end
-  	end
-  end
+ #  	  text_part do
+ #  	    body body
+ #  	  end
+ #  	end
+ #  end
+  email_divider
+ 	puts "sending email to #{email_address}, with subject_line #{subject_line}"
+ 	puts "Msg: #{body}"
+ 	email_divider
+end
+
+def email_divider
+	puts "****************"
+	
 end
 
 
