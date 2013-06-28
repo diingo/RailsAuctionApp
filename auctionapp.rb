@@ -39,13 +39,13 @@ class Auction #in charge of the auction items and bid placing
         if user == @auction_leader #is auction leader updating his max bid
           @auction_max_bid = user_max_bid #updating auction leader's max bid
           email_max_bid_update(@auction_leader, self) #send email about max bid update
-          puts "Thanks #{user.name}, you have updated your max bid to #{@auction_max_bid}"
+          puts "Thanks #{user.name}, you have updated your max bid to $#{@auction_max_bid}"
         else #user != @auction_leader, and their max bid takes lead        
           @current_bid = @auction_max_bid + 1
           @auction_max_bid = user_max_bid
           email_confirm_outbid(@auction_leader, self) #email
           @auction_leader = user
-          puts "Congrats, #{@auction_leader.name}, you are currently leading with #{@current_bid}"
+          puts "Congrats, #{@auction_leader.name}, you are currently leading with $#{@current_bid}"
           email_confirm_lead(@auction_leader, self) #email
         end
       end
@@ -60,6 +60,11 @@ class Auction #in charge of the auction items and bid placing
         end
       end
     end
+
+    #DEMO ONLY!! otherwise this will keep getting sent
+    # if !self.auction_underway?
+    #   email_end_win(@auction_leader, self)
+    # end
 	end
 
   def sanitize_bid(bid)
@@ -72,25 +77,24 @@ class Auction #in charge of the auction items and bid placing
       puts "Your bid is not acceptable. Can't bid below $1"
       nil
     elsif bid - bid.floor != 0
-      puts "Only whole dollar bids are accepted. Rounding your bid down to #{bid.floor}"
+      puts "Only whole dollar bids are accepted. Rounding your bid down to $#{bid.floor}"
       bid = bid.floor
     end
     bid
   end
 
   def auction_underway?
-    if @start_time >= @end_time
+    if Time.now >= @end_time
       puts "Auction is over."
       return false
     end
-    puts "Auction still underway"
     return true
   end
 		
 	def status
 		puts "The current winner is #{@auction_leader.name}"
 		puts "The current bid is: $#{@current_bid}"
-		puts "The current private max bid is #{@auction_max_bid}"
+		puts "The current private max bid is $#{@auction_max_bid}"
 	end
 end
 
