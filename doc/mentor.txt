@@ -1,0 +1,30 @@
+
+1) Review basic structure of a Ruby application (or any for that matter)
+
+2) Do you understand the difference between load and require?
+
+3) Whenever possible try to keep your code DRY (don't repeat yourself)
+
+4) Also you want to KISS "Keep It Stupid Simple"
+
+5) Do you undertand the difference between static and dynamic typing?
+   Explain: - when you're taking input that you will do certain operations on coerce to make sure it'll behave
+            - think about nil (is it possible to receive nil as input, if so then what?)
+
+6) While it is possible to put all the classes into a single file it's not best practice
+   Also: namespace your classes with modules so you don't pollute the global namespace ('main')
+
+7) Project dependencies should ideally be required in a Gemfile (otherwise people don't know about them)
+   e.g. gmail gem was required, but no way to know that than to read code or have app blowup
+
+8) Do you think you need/have a bid class?  It would allow for bidding history.
+   - Auction class is "in charge of auction items and bid placing"  (that's a clue you have another class)
+   - Classes should only have one responsibility (to their own data)
+     - An Auction has_many :bids and :users (through :bids)
+     - A User has_many :bids and :auctions (through :bids)
+     - A Bid belongs_to a :user and :auction
+
+9) Never use floats for money -- use BigDecimal or Integers to avoid rounding errors
+   Try:  (10.12*100).to_i  #=> 1011
+         sprintf("%0.50f", 10.12)   #=> what it approximately equals
+         now try (BigDecimal("10.12")*100).to_i

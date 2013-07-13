@@ -1,3 +1,5 @@
+require 'bigdecimal' 
+
 module AuctionApp
   #in charge of the auction items and bid placing
   class Auction
@@ -51,23 +53,6 @@ module AuctionApp
       # end
     end
 
-    def sanitize_bid(bid)
-      bid = bid.to_i   # coerce input into an integer for comparison operations
-
-      if bid <= 0
-        puts "Your bid is not acceptable, can't bid with negative or zero."
-        return nil
-      end
-
-      if bid - bid.floor != 0 && bid.floor == 0
-        puts "Your bid is not acceptable. Can't bid below $1"
-        nil
-      elsif bid - bid.floor != 0
-        puts "Only whole dollar bids are accepted. Rounding your bid down to $#{bid.floor}"
-        bid = bid.floor
-      end
-      bid
-    end
 
     def auction_underway?
       if Time.now >= @end_time
@@ -86,6 +71,28 @@ module AuctionApp
     def to_s
       "Auction: #{self.title}\n[#{self.description}]\n\n"
     end
+  
+
+    private
+
+    def sanitize_bid(bid)
+      bid = BigDecimal.new(bid.to_s)   # coerce input into a BigDecimal for comparison operations
+
+      if bid <= 0
+        puts "Your bid is not acceptable, can't bid with negative or zero."
+        return nil
+      end
+
+      if bid - bid.floor != 0 && bid.floor == 0
+        puts "Your bid is not acceptable. Can't bid below $1"
+        nil
+      elsif bid - bid.floor != 0
+        puts "Only whole dollar bids are accepted. Rounding your bid down to $#{bid.floor}"
+        bid = bid.floor
+      end
+      bid
+    end
+
   end
 
 end
